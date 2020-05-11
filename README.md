@@ -1,4 +1,4 @@
-# NewRelic [![Build Status](https://secure.travis-ci.org/plicease/NewRelic.png)](http://travis-ci.org/plicease/NewRelic)
+# NewRelic [![Build Status](https://travis-ci.org/plicease/NewRelic.svg)](http://travis-ci.org/plicease/NewRelic)
 
 Unofficial Perl NewRelic SDK
 
