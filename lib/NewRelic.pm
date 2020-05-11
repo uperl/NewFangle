@@ -112,7 +112,8 @@ package NewRelic {
   $ffi->attach( newrelic_configure_log      => ['string','newrelic_loglevel_t' ]    => 'bool'                                 );
   $ffi->attach( newrelic_init               => ['string','int' ]                    => 'bool'                                 );
   $ffi->attach( newrelic_create_app         => ['newrelic_app_config_t', 'ushort' ] => 'newrelic_app_t'                       );
-  $ffi->attach( newrelic_destroy_app        => ['opaque*']                          => 'bool' => _d1('newrelic_app_t')         );
+  $ffi->attach( newrelic_destroy_app        => ['opaque*']                          => 'bool' => _d1('newrelic_app_t')        );
+  $ffi->attach( newrelic_version            => []                                   => 'string'                               );
 
 };
 
