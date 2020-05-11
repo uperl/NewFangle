@@ -3,6 +3,16 @@ use NewRelic;
 use FFI::C::Util qw( c_to_perl );
 use YAML qw( Dump );
 
+my $version = NewRelic::newrelic_version();
+diag '';
+diag '';
+diag '';
+
+diag "newrelic_version = $version";
+
+diag '';
+diag '';
+
 my $config = NewRelic::newrelic_create_app_config("YOUR_APP_NAME", "a" x 40 );
 isa_ok $config, 'NewRelic::NewrelicAppConfig';
 note Dump(c_to_perl $config);
