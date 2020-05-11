@@ -5,7 +5,7 @@ package NewRelic {
   use 5.020;
   use Alien::libnewrelic;
   use FFI::Platypus 1.26;
-  use FFI::C 0.06;
+  use FFI::C 0.07;
   use Ref::Util qw( is_blessed_ref );
   use FFI::C::Util qw( take );
   use Carp qw( croak );
@@ -85,7 +85,7 @@ package NewRelic {
       datastore_tracer    => 'newrelic_datastore_segment_config_t',
       distributed_tracing => 'newrelic_distributed_tracing_config_t',
       span_events         => 'newrelic_span_event_config_t',
-    ]);
+    ], { trim_string => 1 });
   }
 
   package NewRelic::NewrelicApp {
