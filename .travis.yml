@@ -20,12 +20,6 @@ jobs:
     - env: CIP_TAG=5.24
     - env: CIP_TAG=5.22
     - env: CIP_TAG=5.20
-    - env: CIP_TAG=5.18
-    - env: CIP_TAG=5.16
-    - env: CIP_TAG=5.14
-    - env: CIP_TAG=5.12
-    - env: CIP_TAG=5.10
-    - env: CIP_TAG=5.8
 cache:
   directories:
     - "$HOME/.cip"
