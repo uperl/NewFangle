@@ -5,7 +5,7 @@ package NewRelic {
   use 5.020;
   use Alien::libnewrelic;
   use FFI::Platypus 1.26;
-  use FFI::C 0.07;
+  use FFI::C 0.08;
   use Ref::Util qw( is_blessed_ref );
   use FFI::C::Util qw( take );
   use Carp qw( croak );
@@ -18,24 +18,33 @@ package NewRelic {
     lib => [Alien::libnewrelic->dynamic_libs],
   );
 
-  $ffi->type('enum', 'newrelic_loglevel_t');
-  use constant NEWRELIC_LOG_ERROR   => 0;
-  use constant NEWRELIC_LOG_WARNING => 1;
-  use constant NEWRELIC_LOG_INFO    => 2;
-  use constant NEWRELIC_LOG_DEBUG   => 3;
+  FFI::C->ffi($ffi);
 
-  $ffi->type('enum', 'newrelic_transaction_tracer_threshold_t');
-  use constant NEWRELIC_THRESHOLD_IS_APDEX_FAILING => 0;
-  use constant NEWRELIC_THRESHOLD_IS_OVER_DURATION => 1;
+  package NewRelic::NewrelicLoglevel {
+    FFI::C->enum([
+      'error',
+      'warning',
+      'info',
+      'debug',
+    ], { prefix => 'NEWRELIC_LOG_' });
+  }
 
-  $ffi->type('enum', 'newrelic_tt_recordsql_t');
-  use constant NEWRELIC_SQL_OFF        => 0;
-  use constant NEWRELIC_SQL_RAW        => 1;
-  use constant NEWRELIC_SQL_OBFUSCATED => 2;
+  package NewRelic::NewrelicTransactionTracerThreshold {
+    FFI::C->enum([
+      'is_apdex_failing',
+      'is_over_duration',
+    ], { prefix => 'NEWRELIC_THRESHOLD_' });
+  }
+
+  package NewRelic::NewrelicTtRecordsql {
+    FFI::C->enum([
+      'off',
+      'raw',
+      'obfuscated',
+    ], { prefix => 'NEWRELIC_SQL_' });
+  }
 
   $ffi->type('uint64' => 'newrelic_time_us_t');
-
-  FFI::C->ffi($ffi);
 
   package NewRelic::DatastoreReporting {
     FFI::C->struct([
