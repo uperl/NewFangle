@@ -1,5 +1,4 @@
 NewRelic-*
 /.build/
 *.swp
-
-
+/newrelic_sdk.log
