@@ -11,7 +11,6 @@ package NewRelic {
   use Carp qw( croak );
 
 # ABSTRACT: Unofficial Perl NewRelic SDK
-# VERSION
 
   my $ffi = FFI::Platypus->new(
     api => 1,
