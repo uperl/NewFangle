@@ -102,11 +102,6 @@ package NewRelic {
     ], { trim_string => 1 });
   }
 
-  package NewRelic::NewrelicApp {
-    FFI::C->struct([
-    ]);
-  }
-
 =head1 FUNCTIONS
 
 These may be imported on request using L<Exporter>.
@@ -131,17 +126,13 @@ Returns the
 
 =cut
 
-
-  $ffi->attach( newrelic_configure_log    => ['string','newrelic_loglevel_t' ]    => 'bool'                                 );
-  $ffi->attach( newrelic_init             => ['string','int' ]                    => 'bool'                                 );
-  $ffi->attach( newrelic_version          => []                                   => 'string'                               );
+  $ffi->attach( newrelic_configure_log => ['string','newrelic_loglevel_t' ] => 'bool'   );
+  $ffi->attach( newrelic_init          => ['string','int' ]                 => 'bool'   );
+  $ffi->attach( newrelic_version       => []                                => 'string' );
 
   our @EXPORT_OK = grep /^newrelic_/, keys %NewRelic::;
 
   $ffi->mangler(sub { "newrelic_$_[0]" });
-
-  #$ffi->attach( create_app         => ['newrelic_app_config_t', 'ushort' ] => 'newrelic_app_t'                       );
-  #$ffi->attach( destroy_app        => ['opaque*']                          => 'bool' => _d1('newrelic_app_t')        );
 
   package NewRelic::Config {
 
@@ -167,6 +158,28 @@ Returns the
       my $ptr = delete $self->{config}->{ptr};
       $xsub->(\$ptr);
     });
+  }
+
+  package NewRelic::App {
+
+    $ffi->type('object(NewRelic::App)' => 'newrelic_app_t');
+
+    $ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t', 'unsigned short'] => 'newrelic_app_t' => sub {
+      my($xsub, undef, $config, $timeout) = @_;
+      $config //= {};
+      $config = NewRelic::Config->new(%$config) if ref $config eq 'HASH';
+      $timeout //= 0;
+      my $self = $xsub->($config->{config});
+      Carp::croak("unable to NewRelic::App instance, see log for details") unless defined $self;
+      $self;
+    });
+
+    $ffi->attach( [ destroy_app => 'DESTROY' ] => ['opaque*'] => 'bool' => sub {
+      my($xsub, $self) = @_;
+      my $ptr = $$self;
+      $xsub->(\$ptr);
+    });
+
   }
 
 };
