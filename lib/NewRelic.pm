@@ -106,13 +106,6 @@ package NewRelic {
     ]);
   }
 
-  sub _app_config {
-    my($xsub, $app_name, $license_key) = @_;
-    $app_name    //= $ENV{NEWRELIC_APP_NAME}    // 'AppName';
-    $license_key //= $ENV{NEWRELIC_LICENSE_KEY} // '';
-    $xsub->($app_name, $license_key);
-  }
-
   sub _d1 ($) {
     my($name) = shift;
     my $class = 'NewRelic::' . ((ucfirst $name =~ s/_t$//r) =~ s/_([a-z])/uc($1)/egr);
@@ -127,13 +120,37 @@ package NewRelic {
     };
   }
 
-  $ffi->attach( newrelic_create_app_config  => ['string','string']                  => 'newrelic_app_config_t', \&_app_config );
-  $ffi->attach( newrelic_destroy_app_config => ['opaque*']                          => 'bool' => _d1('newrelic_app_config_t') );
   $ffi->attach( newrelic_configure_log      => ['string','newrelic_loglevel_t' ]    => 'bool'                                 );
   $ffi->attach( newrelic_init               => ['string','int' ]                    => 'bool'                                 );
   $ffi->attach( newrelic_create_app         => ['newrelic_app_config_t', 'ushort' ] => 'newrelic_app_t'                       );
   $ffi->attach( newrelic_destroy_app        => ['opaque*']                          => 'bool' => _d1('newrelic_app_t')        );
   $ffi->attach( newrelic_version            => []                                   => 'string'                               );
+
+  package NewRelic::Config {
+
+    $ffi->attach( [ newrelic_create_app_config => 'new' ] => [ 'string', 'string' ] => 'newrelic_app_config_t' => sub {
+      my($xsub, $class, %config) = @_;
+      my $app_name    = delete $config{app_name}    // $ENV{NEWRELIC_APP_NAME}    // 'AppName';
+      my $license_key = delete $config{license_key} // $ENV{NEWRELIC_LICENSE_KEY} // '';
+      my $config = $xsub->($app_name, $license_key);
+      FFI::C::Util::perl_to_c($config, \%config);
+      bless {
+        config => $config,
+      }, $class;
+    });
+
+    sub to_perl
+    {
+      my($self) = @_;
+      FFI::C::Util::c_to_perl($self->{config});
+    }
+
+    $ffi->attach( [ newrelic_destroy_app_config => 'DESTROY' ] => [ 'opaque*' ] => 'bool' => sub {
+      my($xsub, $self) = @_;
+      my $ptr = delete $self->{config}->{ptr};
+      $xsub->(\$ptr);
+    });
+  }
 
 };
 
