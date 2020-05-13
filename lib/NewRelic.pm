@@ -25,7 +25,7 @@ this is probably the best way to instrument your Perl application with NewRelic.
 This distribution provides a light OO interface using L<FFI::Platypus> and will
 optionally use L<Alien::libnewrelic> if the C-SDK can't be found in your library
 path.  Unfortunately the naming convention used by NewRelic doesn't always have an
-obvious mapping to the OO Perl interface, so I've added notation (example: 
+obvious mapping to the OO Perl interface, so I've added notation (example:
 (csdk: newrelic_version)) so that the C version of functions and methods can be
 found easily.  The documentation has decent coverage of all methods, but it doesn't
 always make sense to reproduce everything that is in the C-SDK documentation, so
