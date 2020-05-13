@@ -43,8 +43,9 @@ Returns the
 
 # SEE ALSO
 
-- [NewRelic::Config](https://metacpan.org/pod/NewRelic::Config)
 - [NewRelic::App](https://metacpan.org/pod/NewRelic::App)
+- [NewRelic::Config](https://metacpan.org/pod/NewRelic::Config)
+- [NewRelic::Transaction](https://metacpan.org/pod/NewRelic::Transaction)
 
 # AUTHOR
 

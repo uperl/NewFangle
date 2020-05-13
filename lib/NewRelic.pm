@@ -149,9 +149,11 @@ Returns the
 
 =over 4
 
+=item L<NewRelic::App>
+
 =item L<NewRelic::Config>
 
-=item L<NewRelic::App>
+=item L<NewRelic::Transaction>
 
 =back
 

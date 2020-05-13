@@ -7,6 +7,20 @@ skip_all 'enable tests by running newrelic-daemon and setting PERL_NEWRELIC_LIVE
 newrelic_configure_log("./newrelic_sdk.log", "debug");
 
 my $app = NewRelic::App->new;
-isa_ok $app, 'NewRelic::App';
+
+is(
+  $app->start_web_transaction("web1"),
+  object {
+    call [ isa => 'NewRelic::Transaction' ] => T();
+    call end => T();
+  },
+);
+
+is(
+  $app->start_non_web_transaction("nonweb1"),
+  object {
+    call [ isa => 'NewRelic::Transaction' ] => T();
+  },
+);
 
 done_testing;

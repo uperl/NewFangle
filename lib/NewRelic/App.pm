@@ -4,6 +4,7 @@ package NewRelic::App {
   use warnings;
   use 5.020;
   use NewRelic::FFI;
+  use NewRelic::Transaction;
   use Carp ();
 
 # ABSTRACT: NewRelic application class
@@ -55,6 +56,27 @@ provided then only one attempt at connecting to the daemon will be made.
     Carp::croak("unable to NewRelic::App instance, see log for details") unless defined $self;
     $self;
   });
+
+=head2 start_web_transaction
+
+ my $txn = $app->start_web_transaction($name);
+
+Starts a web based transaction.  Returns the L<NewRelic::Transaction> instance.
+
+(csdk: newrelic_start_web_transaction)
+
+=head2 start_non_web_transaction
+
+ my $txn = $app->start_non_web_transaction($name);
+
+Starts a non-web based transaction.  Returns the L<NewRelic::Transaction> instance.
+
+(csdk: newrelic_start_web_transaction)
+
+=cut
+
+  $ffi->attach( start_non_web_transaction => ['newrelic_app_t','string'] => 'newrelic_txn_t' );
+  $ffi->attach( start_web_transaction     => ['newrelic_app_t','string'] => 'newrelic_txn_t' );
 
   $ffi->attach( [ destroy_app => 'DESTROY' ] => ['opaque*'] => 'bool' => sub {
     my($xsub, $self) = @_;
