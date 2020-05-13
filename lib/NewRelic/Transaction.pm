@@ -32,9 +32,7 @@ Ends the transaction.
 
   $ffi->attach( [ end_transaction => 'end' ] => ['opaque*'] => 'bool' => sub {
     my($xsub, $self) = @_;
-    my $ptr = $$self;
-    my $ret = $xsub->(\$ptr);
-    $$self = undef;
+    my $ret = $xsub->($self);
     $ret;
   });
 
