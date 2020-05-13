@@ -9,6 +9,7 @@ pod_spelling_system:
     - SDK
     - NewRelic
     - csdk
+    - datastore
 
 pod_coverage:
   skip: 0

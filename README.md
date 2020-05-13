@@ -45,6 +45,7 @@ Returns the
 
 - [NewRelic::App](https://metacpan.org/pod/NewRelic::App)
 - [NewRelic::Config](https://metacpan.org/pod/NewRelic::Config)
+- [NewRelic::Segment](https://metacpan.org/pod/NewRelic::Segment)
 - [NewRelic::Transaction](https://metacpan.org/pod/NewRelic::Transaction)
 
 # AUTHOR
