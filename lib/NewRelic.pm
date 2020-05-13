@@ -3,7 +3,7 @@ package NewRelic {
   use strict;
   use warnings;
   use 5.020;
-  use Alien::libnewrelic;
+  use FFI::CheckLib 0.27 ();
   use FFI::Platypus 1.26;
   use FFI::C 0.08;
   use Ref::Util qw( is_blessed_ref );
@@ -15,7 +15,12 @@ package NewRelic {
 
   my $ffi = FFI::Platypus->new(
     api => 1,
-    lib => [Alien::libnewrelic->dynamic_libs],
+    lib => [do {
+      my $lib = FFI::CheckLib::find_lib lib => 'newrelic';
+      $lib
+        ? $lib
+        : FFI::CheckLib::find_lib lib => 'newrelic', alien => 'Alien::libnewrelic',
+    }],
   );
 
   FFI::C->ffi($ffi);
