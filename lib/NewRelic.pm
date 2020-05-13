@@ -9,6 +9,7 @@ package NewRelic {
   use Ref::Util qw( is_blessed_ref );
   use FFI::C::Util qw( take );
   use Carp qw( croak );
+  use base qw( Exporter );
 
 # ABSTRACT: Unofficial Perl NewRelic SDK
 
@@ -106,29 +107,45 @@ package NewRelic {
     ]);
   }
 
-  sub _d1 ($) {
-    my($name) = shift;
-    my $class = 'NewRelic::' . ((ucfirst $name =~ s/_t$//r) =~ s/_([a-z])/uc($1)/egr);
-    sub {
-      my($xsub, $object) = @_;
-      croak("Not a $name / $class")
-        unless is_blessed_ref($object) && $object->isa("$class");
-      my $ptr = delete $object->{ptr};
-      croak("Already destroyed: $name / $class")
-        unless defined $ptr;
-      $xsub->(\$ptr);
-    };
-  }
+=head1 FUNCTIONS
 
-  $ffi->attach( newrelic_configure_log      => ['string','newrelic_loglevel_t' ]    => 'bool'                                 );
-  $ffi->attach( newrelic_init               => ['string','int' ]                    => 'bool'                                 );
-  $ffi->attach( newrelic_create_app         => ['newrelic_app_config_t', 'ushort' ] => 'newrelic_app_t'                       );
-  $ffi->attach( newrelic_destroy_app        => ['opaque*']                          => 'bool' => _d1('newrelic_app_t')        );
-  $ffi->attach( newrelic_version            => []                                   => 'string'                               );
+These may be imported on request using L<Exporter>.
+
+=head2 newrelic_configure_log
+
+ my $bool = newrelic_configure_log($filename, $level);
+
+Configure the C SDK's logging system.  (See C<newrelic_configure_log>)
+
+=head2 newrelic_init
+
+ my $bool = newrelic_init($daemon_socket, $time_limit_ms);
+
+Initialize the C SDK with non-default settings.  (See C<newrelic_init>)
+
+=head2 newrelic_version
+
+ my $version = newrelic_version();
+
+Returns the
+
+=cut
+
+
+  $ffi->attach( newrelic_configure_log    => ['string','newrelic_loglevel_t' ]    => 'bool'                                 );
+  $ffi->attach( newrelic_init             => ['string','int' ]                    => 'bool'                                 );
+  $ffi->attach( newrelic_version          => []                                   => 'string'                               );
+
+  our @EXPORT_OK = grep /^newrelic_/, keys %NewRelic::;
+
+  $ffi->mangler(sub { "newrelic_$_[0]" });
+
+  #$ffi->attach( create_app         => ['newrelic_app_config_t', 'ushort' ] => 'newrelic_app_t'                       );
+  #$ffi->attach( destroy_app        => ['opaque*']                          => 'bool' => _d1('newrelic_app_t')        );
 
   package NewRelic::Config {
 
-    $ffi->attach( [ newrelic_create_app_config => 'new' ] => [ 'string', 'string' ] => 'newrelic_app_config_t' => sub {
+    $ffi->attach( [ create_app_config => 'new' ] => [ 'string', 'string' ] => 'newrelic_app_config_t' => sub {
       my($xsub, $class, %config) = @_;
       my $app_name    = delete $config{app_name}    // $ENV{NEWRELIC_APP_NAME}    // 'AppName';
       my $license_key = delete $config{license_key} // $ENV{NEWRELIC_LICENSE_KEY} // '';
@@ -145,7 +162,7 @@ package NewRelic {
       FFI::C::Util::c_to_perl($self->{config});
     }
 
-    $ffi->attach( [ newrelic_destroy_app_config => 'DESTROY' ] => [ 'opaque*' ] => 'bool' => sub {
+    $ffi->attach( [ destroy_app_config => 'DESTROY' ] => [ 'opaque*' ] => 'bool' => sub {
       my($xsub, $self) = @_;
       my $ptr = delete $self->{config}->{ptr};
       $xsub->(\$ptr);

@@ -2,6 +2,34 @@
 
 Unofficial Perl NewRelic SDK
 
+# FUNCTIONS
+
+These may be imported on request using [Exporter](https://metacpan.org/pod/Exporter).
+
+## newrelic\_configure\_log
+
+```perl
+my $bool = newrelic_configure_log($filename, $level);
+```
+
+Configure the C SDK's logging system.  (See `newrelic_configure_log`)
+
+## newrelic\_init
+
+```perl
+my $bool = newrelic_init($daemon_socket, $time_limit_ms);
+```
+
+Initialize the C SDK with non-default settings.  (See `newrelic_init`)
+
+## newrelic\_version
+
+```perl
+my $version = newrelic_version();
+```
+
+Returns the
+
 # AUTHOR
 
 Graham Ollis <plicease@cpan.org>
