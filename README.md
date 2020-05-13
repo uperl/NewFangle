@@ -12,7 +12,14 @@ These may be imported on request using [Exporter](https://metacpan.org/pod/Expor
 my $bool = newrelic_configure_log($filename, $level);
 ```
 
-Configure the C SDK's logging system.  (See `newrelic_configure_log`)
+Configure the C SDK's logging system.  `$level` should be one of:
+
+- `error`
+- `warning`
+- `info`
+- `debug`
+
+(csdk: newrelic\_configure\_log)
 
 ## newrelic\_init
 
@@ -20,7 +27,9 @@ Configure the C SDK's logging system.  (See `newrelic_configure_log`)
 my $bool = newrelic_init($daemon_socket, $time_limit_ms);
 ```
 
-Initialize the C SDK with non-default settings.  (See `newrelic_init`)
+Initialize the C SDK with non-default settings.
+
+(csdk: newrelic\_init)
 
 ## newrelic\_version
 
@@ -28,7 +37,14 @@ Initialize the C SDK with non-default settings.  (See `newrelic_init`)
 my $version = newrelic_version();
 ```
 
+(csdk: newrelic\_version)
+
 Returns the
+
+# SEE ALSO
+
+- [NewRelic::Config](https://metacpan.org/pod/NewRelic::Config)
+- [NewRelic::App](https://metacpan.org/pod/NewRelic::App)
 
 # AUTHOR
 
