@@ -153,6 +153,8 @@ Returns the
 
 =item L<NewRelic::Config>
 
+=item L<NewRelic::Segment>
+
 =item L<NewRelic::Transaction>
 
 =back

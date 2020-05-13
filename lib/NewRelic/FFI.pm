@@ -39,6 +39,9 @@ This is part of the internal workings for L<NewRelic>.
     }],
   );
   $ffi->mangler(sub { "newrelic_$_[0]" });
+  $ffi->load_custom_type('::PtrObject', 'newrelic_segment_t', 'NewRelic::Segment');
+  $ffi->type('object(NewRelic::Transaction)' => 'newrelic_txn_t');
+
 
 };
 
