@@ -8,6 +8,7 @@ pod_spelling_system:
   stopwords:
     - SDK
     - NewRelic
+    - csdk
 
 pod_coverage:
   skip: 0
