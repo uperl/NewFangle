@@ -106,6 +106,13 @@ package NewRelic {
     ]);
   }
 
+  sub _app_config {
+    my($xsub, $app_name, $license_key) = @_;
+    $app_name    //= $ENV{NEWRELIC_APP_NAME}    // 'AppName';
+    $license_key //= $ENV{NEWRELIC_LICENSE_KEY} // '';
+    $xsub->($app_name, $license_key);
+  }
+
   sub _d1 ($) {
     my($name) = shift;
     my $class = 'NewRelic::' . ((ucfirst $name =~ s/_t$//r) =~ s/_([a-z])/uc($1)/egr);
@@ -120,7 +127,7 @@ package NewRelic {
     };
   }
 
-  $ffi->attach( newrelic_create_app_config  => ['string','string']                  => 'newrelic_app_config_t'                );
+  $ffi->attach( newrelic_create_app_config  => ['string','string']                  => 'newrelic_app_config_t', \&_app_config );
   $ffi->attach( newrelic_destroy_app_config => ['opaque*']                          => 'bool' => _d1('newrelic_app_config_t') );
   $ffi->attach( newrelic_configure_log      => ['string','newrelic_loglevel_t' ]    => 'bool'                                 );
   $ffi->attach( newrelic_init               => ['string','int' ]                    => 'bool'                                 );
