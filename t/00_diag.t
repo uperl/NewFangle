@@ -15,6 +15,7 @@ $modules{$_} = $_ for qw(
   FFI::C::Util
   FFI::CheckLib
   FFI::Platypus
+  FFI::Platypus::Type::PtrObject
   Test2::V0
   YAML
 );
