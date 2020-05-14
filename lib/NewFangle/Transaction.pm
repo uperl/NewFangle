@@ -157,6 +157,8 @@ Ends the transaction.
   $ffi->attach( [ set_transaction_name => 'set_name' ] => [ 'newrelic_txn_t', 'string' ] => 'bool' );
 
 # TODO: newrelic_create_distributed_trace_payload
+# TODO: newrelic_accept_distributed_trace_payload
+# TODO: newrelic_create_distributed_trace_payload_httpsafe
 # TODO: newrelic_accept_distributed_trace_payload_httpsafe
 
   sub DESTROY
