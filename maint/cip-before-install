@@ -4,4 +4,3 @@ set -ex
 
 cip sudo apt-get update
 cip sudo apt-get install -y libpcre3-dev libffi-dev
-cip exec cpanm -v https://dist.wdlabs.com/Alien-libnewrelic-0.01.tar.gz
