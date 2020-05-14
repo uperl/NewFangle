@@ -99,6 +99,16 @@ Start a new external segment.  Returns L<NewFangle::Segment> instance.
 
   $ffi->attach( "notice_error" => [ 'newrelic_txn_t', 'int', 'string', 'string' ] );
 
+=head2 ignore_transaction
+
+ my $bool = $txn->ignore;
+
+csdk: newrelic_ignore_transaction)
+
+=cut
+
+  $ffi->attach( [ 'ignore_transaction' => 'ignore' ] => ['newrelic_txn_t'] => 'bool' );
+
 =head2 end
 
  my $bool = $txn->end;
