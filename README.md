@@ -1,4 +1,4 @@
-# NewRelic [![Build Status](https://travis-ci.org/plicease/NewRelic.svg)](http://travis-ci.org/plicease/NewRelic)
+# NewFangle [![Build Status](https://travis-ci.org/plicease/NewFangle.svg)](http://travis-ci.org/plicease/NewFangle)
 
 Unofficial Perl NewRelic SDK
 
@@ -25,6 +25,9 @@ obvious mapping to the OO Perl interface, so I've added notation (example:
 found easily.  The documentation has decent coverage of all methods, but it doesn't
 always make sense to reproduce everything that is in the C-SDK documentation, so
 it is recommended that you review it before getting started.
+
+I've called this module [NewFangle](https://metacpan.org/pod/NewFangle) in the hopes that one day NewRelic will write
+native Perl bindings and they can use the more obvious NewRelic namespace.
 
 # FUNCTIONS
 
@@ -73,11 +76,11 @@ instead of `Perl`.
 
 # SEE ALSO
 
-- [NewRelic::App](https://metacpan.org/pod/NewRelic::App)
-- [NewRelic::Config](https://metacpan.org/pod/NewRelic::Config)
-- [NewRelic::CustomEvent](https://metacpan.org/pod/NewRelic::CustomEvent)
-- [NewRelic::Segment](https://metacpan.org/pod/NewRelic::Segment)
-- [NewRelic::Transaction](https://metacpan.org/pod/NewRelic::Transaction)
+- [NewFangle::App](https://metacpan.org/pod/NewFangle::App)
+- [NewFangle::Config](https://metacpan.org/pod/NewFangle::Config)
+- [NewFangle::CustomEvent](https://metacpan.org/pod/NewFangle::CustomEvent)
+- [NewFangle::Segment](https://metacpan.org/pod/NewFangle::Segment)
+- [NewFangle::Transaction](https://metacpan.org/pod/NewFangle::Transaction)
 
 # AUTHOR
 

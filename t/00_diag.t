@@ -16,14 +16,15 @@ $modules{$_} = $_ for qw(
   FFI::CheckLib
   FFI::Platypus
   FFI::Platypus::Type::PtrObject
+  NewRelic
   Test2::V0
   YAML
 );
 
 $post_diag = sub {
   eval {
-    require NewRelic;
-    diag 'newrelic_version = ', NewRelic::newrelic_version();
+    require NewFangle;
+    diag 'newrelic_version = ', NewFangle::newrelic_version();
   };
  };
 
