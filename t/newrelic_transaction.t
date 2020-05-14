@@ -9,6 +9,10 @@ is(
   $app->start_web_transaction("web1"),
   object {
     call [ isa => 'NewFangle::Transaction' ] => T();
+    call [ add_attribute_int    => 'foo_int',              10 ] => T();
+    call [ add_attribute_long   => 'foo_long',             11 ] => T();
+    call [ add_attribute_double => 'foo_double',         3.14 ] => T();
+    call [ add_attribute_string => 'foo_string', 'hello perl' ] => T();
     call end => T();
   },
 );
@@ -17,6 +21,7 @@ is(
   $app->start_non_web_transaction("nonweb1"),
   object {
     call [ isa => 'NewFangle::Transaction' ] => T();
+    call [ notice_error => 3, "oh boy this is bad", "Error::Class" ] => U();
   },
 );
 

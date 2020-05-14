@@ -56,9 +56,48 @@ Start a new external segment.  Returns L<NewFangle::Segment> instance.
     $seg;
   }
 
-  $ffi->attach( start_segment           => ['newrelic_txn_t','string','string'] => 'newrelic_segment_t' => \&_segment);
-  $ffi->attach( start_datastore_segment => ['newrelic_txn_t','string[7]']       => 'newrelic_segment_t' => \&_segment);
-  $ffi->attach( start_external_segment  => ['newrelic_txn_t','string[3]']       => 'newrelic_segment_t' => \&_segment);
+  $ffi->attach( start_segment           => ['newrelic_txn_t','string','string'] => 'newrelic_segment_t' => \&_segment );
+  $ffi->attach( start_datastore_segment => ['newrelic_txn_t','string[7]']       => 'newrelic_segment_t' => \&_segment );
+  $ffi->attach( start_external_segment  => ['newrelic_txn_t','string[3]']       => 'newrelic_segment_t' => \&_segment );
+
+=head2 add_attribute_int
+
+ my $bool = $txn->add_attribute_int($key, $value);
+
+(csdk: newrelic_add_attribute_int)
+
+=head2 add_attribute_long
+
+ my $bool = $txn->add_attribute_long($key, $value);
+
+(csdk: newrelic_add_attribute_long)
+
+=head2 add_attribute_double
+
+ my $bool = $txn->add_attribute_double($key, $value);
+
+(csdk: newrelic_add_attribute_double)
+
+=head2 add_attribute_string
+
+ my $bool = $txn->add_attribute_string($key, $value);
+
+(csdk: newrelic_add_attribute_string)
+
+=cut
+
+  $ffi->attach( "add_attribute_$_" => ['newrelic_txn_t','string',$_] => 'bool' )
+    for qw( int long double string );
+
+=head2 notice_error
+
+ $txn->notice_error($priority, $errmsg, $errclass);
+
+(csdk: newrelic_notice_error)
+
+=cut
+
+  $ffi->attach( "notice_error" => [ 'newrelic_txn_t', 'int', 'string', 'string' ] );
 
 =head2 end
 
@@ -70,7 +109,7 @@ Ends the transaction.
 
 =cut
 
-  $ffi->attach( [ end_transaction => 'end' ] => ['opaque*'] => 'bool');
+  $ffi->attach( [ end_transaction => 'end' ] => ['opaque*'] => 'bool' );
 
   sub DESTROY
   {
