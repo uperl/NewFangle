@@ -99,7 +99,7 @@ Start a new external segment.  Returns L<NewFangle::Segment> instance.
 
   $ffi->attach( "notice_error" => [ 'newrelic_txn_t', 'int', 'string', 'string' ] );
 
-=head2 ignore_transaction
+=head2 ignore
 
  my $bool = $txn->ignore;
 
@@ -120,6 +120,12 @@ Ends the transaction.
 =cut
 
   $ffi->attach( [ end_transaction => 'end' ] => ['opaque*'] => 'bool' );
+
+# TODO: newrelic_record_custom_event
+# TODO: newrelic_record_custom_metric
+# TODO: newrelic_create_distributed_trace_payload
+# TODO: newrelic_accept_distributed_trace_payload_httpsafe
+# TODO: newrelic_set_transaction_name
 
   sub DESTROY
   {

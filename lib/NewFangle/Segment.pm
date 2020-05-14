@@ -47,6 +47,10 @@ Ends the segment.
     $xsub->($self->{txn}, \$self->{ptr});
   });
 
+# TODO: newrelic_set_segment_parent
+# TODO: newrelic_set_segment_parent_root
+# TODO: newrelic_set_segment_timing
+
   sub DESTROY
   {
     my($self) = @_;
