@@ -16,7 +16,6 @@ $modules{$_} = $_ for qw(
   FFI::CheckLib
   FFI::Platypus
   FFI::Platypus::Type::PtrObject
-  NewRelic
   Test2::V0
   YAML
 );

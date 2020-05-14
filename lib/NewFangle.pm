@@ -173,6 +173,20 @@ Returns the
 
 1;
 
+=head1 ENVIRONMENT
+
+=over 4
+
+=item C<NEWRELIC_APP_NAME>
+
+The default app name, if not specified in the configuration.
+
+=item C<NEWRELIC_LICENSE_KEY>
+
+The NewRelic license key.
+
+=back
+
 =head1 CAVEATS
 
 Unlike the older NewRelic Agent SDK, there is no interface to set the programming

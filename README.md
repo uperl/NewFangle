@@ -68,6 +68,16 @@ my $version = newrelic_version();
 
 Returns the
 
+# ENVIRONMENT
+
+- `NEWRELIC_APP_NAME`
+
+    The default app name, if not specified in the configuration.
+
+- `NEWRELIC_LICENSE_KEY`
+
+    The NewRelic license key.
+
 # CAVEATS
 
 Unlike the older NewRelic Agent SDK, there is no interface to set the programming
