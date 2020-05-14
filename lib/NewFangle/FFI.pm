@@ -39,10 +39,12 @@ This is part of the internal workings for L<NewFangle>.
     }],
   );
   $ffi->mangler(sub { "newrelic_$_[0]" });
-  $ffi->load_custom_type('::PtrObject', 'newrelic_segment_t', 'NewFangle::Segment');
-  $ffi->type('object(NewFangle::Transaction)' => 'newrelic_txn_t');
-  $ffi->type('object(NewFangle::CustomEvent)' => 'newrelic_custom_event_t');
+  $ffi->load_custom_type('::PtrObject', 'newrelic_segment_t', 'NewFangle::Segment',
+    sub { bless { ptr => $_[0] }, 'NewFangle::Segment' });
 
+  $ffi->type('object(NewFangle::App)' => 'newrelic_app_t');
+  $ffi->type('object(NewFangle::Transaction)' => 'newrelic_txn_t',);
+  $ffi->type('object(NewFangle::CustomEvent)' => 'newrelic_custom_event_t');
 
 };
 

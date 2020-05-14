@@ -45,15 +45,17 @@ provided then only one attempt at connecting to the daemon will be made.
 
 =cut
 
-  $ffi->type('object(NewFangle::App)' => 'newrelic_app_t');
-
   $ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t', 'unsigned short'] => 'newrelic_app_t' => sub {
     my($xsub, undef, $config, $timeout) = @_;
     $config //= {};
     $config = NewFangle::Config->new(%$config) if ref $config eq 'HASH';
     $timeout //= 0;
     my $self = $xsub->($config->{config});
-    Carp::croak("unable to create NewFangle::App instance, see log for details") unless defined $self;
+    unless(defined $self)
+    {
+      my $ptr = undef;
+      $self = bless \$ptr, __PACKAGE__;
+    }
     $self;
   });
 
@@ -75,8 +77,18 @@ Starts a non-web based transaction.  Returns the L<NewFangle::Transaction> insta
 
 =cut
 
-  $ffi->attach( start_non_web_transaction => ['newrelic_app_t','string'] => 'newrelic_txn_t' );
-  $ffi->attach( start_web_transaction     => ['newrelic_app_t','string'] => 'newrelic_txn_t' );
+  sub _txn_wrapper {
+    my $xsub = shift;
+    my $txn = $xsub->(@_);
+    $txn //= do {
+      my $ptr = undef;
+      $txn = bless \$ptr, 'NewFangle::Transaction';
+    };
+    $txn;
+  }
+
+  $ffi->attach( start_non_web_transaction => ['newrelic_app_t','string'] => 'newrelic_txn_t', \&_txn_wrapper );
+  $ffi->attach( start_web_transaction     => ['newrelic_app_t','string'] => 'newrelic_txn_t', \&_txn_wrapper );
 
   $ffi->attach( [ destroy_app => 'DESTROY' ] => ['opaque*'] => 'bool' => sub {
     my($xsub, $self) = @_;

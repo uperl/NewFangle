@@ -52,7 +52,7 @@ Start a new external segment.  Returns L<NewFangle::Segment> instance.
     my $xsub = shift;
     my $txn = shift;
     my $seg = $xsub->($txn, @_);
-    $seg->{txn} = $txn if $seg;
+    $seg->{txn} = $txn;
     $seg;
   }
 
