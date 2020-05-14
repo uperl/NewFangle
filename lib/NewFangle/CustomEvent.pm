@@ -36,6 +36,35 @@ Creates a NewRelic application custom event.
     $self;
   });
 
+=head2 add_attribute_int
+
+ $event->add_attribute_int($key, $value);
+
+(csdk: newrelic_custom_event_add_attribute_int)
+
+=head2 add_attribute_long
+
+ $event->add_attribute_long($key, $value);
+
+(csdk: newrelic_custom_event_add_attribute_long)
+
+=head2 add_attribute_double
+
+ $event->add_attribute_double($key, $value);
+
+(csdk: newrelic_custom_event_add_attribute_double)
+
+=head2 add_attribute_string
+
+ $event->add_attribute_string($key, $value);
+
+(csdk: newrelic_custom_event_add_attribute_string)
+
+=cut
+
+  $ffi->attach( [ "custom_event_add_attribute_$_" => "add_attribute_$_" ] => [ 'newrelic_custom_event_t', 'string', $_ ] => 'bool' )
+    for qw( int long double string );
+
   $ffi->attach( [ discard_custom_event => 'DESTROY' ] => ['opaque*'] => 'bool' => sub {
     my($xsub, $self) = @_;
     my $ptr = $$self;
