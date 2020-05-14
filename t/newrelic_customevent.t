@@ -5,7 +5,7 @@ skip_all 'enable tests by running newrelic-daemon and setting PERL_NEWRELIC_LIVE
 
 newrelic_configure_log("./newrelic_sdk.log", "debug");
 
-my $app = NewRelic::App->new;
-isa_ok $app, 'NewRelic::App';
+my $event = NewRelic::CustomEvent->new('foo');
+isa_ok $event, 'NewRelic::CustomEvent';
 
 done_testing;

@@ -164,6 +164,7 @@ Returns the
 
   require NewRelic::Config;
   require NewRelic::App;
+  require NewRelic::CustomEvent;
 
 };
 
@@ -182,6 +183,8 @@ instead of C<Perl>.
 =item L<NewRelic::App>
 
 =item L<NewRelic::Config>
+
+=item L<NewRelic::CustomEvent>
 
 =item L<NewRelic::Segment>
 

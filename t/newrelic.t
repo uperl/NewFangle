@@ -1,7 +1,6 @@
 use Test2::V0 -no_srand => 1;
 use NewRelic qw( newrelic_version );
 use FFI::C::Util qw( c_to_perl );
-use YAML qw( Dump );
 
 my $version = newrelic_version();
 ok $version, 'has a newrelic_version number';
