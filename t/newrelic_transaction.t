@@ -25,4 +25,12 @@ is(
   },
 );
 
+is(
+  $app->start_web_transaction("ignore1"),
+  object {
+    call [ isa => 'NewFangle::Transaction' ] => T();
+    call ignore => T();
+  },
+);
+
 done_testing;
