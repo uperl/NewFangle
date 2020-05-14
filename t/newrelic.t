@@ -1,5 +1,5 @@
 use Test2::V0 -no_srand => 1;
-use NewRelic qw( newrelic_version );
+use NewFangle qw( newrelic_version );
 use FFI::C::Util qw( c_to_perl );
 
 my $version = newrelic_version();

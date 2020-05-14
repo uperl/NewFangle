@@ -1,9 +1,9 @@
-package NewRelic {
+package NewFangle {
 
   use strict;
   use warnings;
   use 5.020;
-  use NewRelic::FFI;
+  use NewFangle::FFI;
   use FFI::C 0.08;
   use base qw( Exporter );
 
@@ -31,11 +31,14 @@ found easily.  The documentation has decent coverage of all methods, but it does
 always make sense to reproduce everything that is in the C-SDK documentation, so
 it is recommended that you review it before getting started.
 
+I've called this module L<NewFangle> in the hopes that one day NewRelic will write
+native Perl bindings and they can use the more obvious NewRelic namespace.
+
 =cut
 
   FFI::C->ffi($ffi);
 
-  package NewRelic::NewrelicLoglevel {
+  package NewFangle::NewrelicLoglevel {
     FFI::C->enum([
       'error',
       'warning',
@@ -44,14 +47,14 @@ it is recommended that you review it before getting started.
     ], { prefix => 'NEWRELIC_LOG_' });
   }
 
-  package NewRelic::NewrelicTransactionTracerThreshold {
+  package NewFangle::NewrelicTransactionTracerThreshold {
     FFI::C->enum([
       'is_apdex_failing',
       'is_over_duration',
     ], { prefix => 'NEWRELIC_THRESHOLD_' });
   }
 
-  package NewRelic::NewrelicTtRecordsql {
+  package NewFangle::NewrelicTtRecordsql {
     FFI::C->enum([
       'off',
       'raw',
@@ -61,7 +64,7 @@ it is recommended that you review it before getting started.
 
   $ffi->type('uint64' => 'newrelic_time_us_t');
 
-  package NewRelic::DatastoreReporting {
+  package NewFangle::DatastoreReporting {
     FFI::C->struct([
       enabled      => 'bool',
       record_sql   => 'newrelic_tt_recordsql_t',
@@ -69,7 +72,7 @@ it is recommended that you review it before getting started.
     ]);
   };
 
-  package NewRelic::NewrelicTransactionTracerConfig {
+  package NewFangle::NewrelicTransactionTracerConfig {
     FFI::C->struct([
       enabled                  => 'bool',
       threshold                => 'newrelic_transaction_tracer_threshold_t',
@@ -79,26 +82,26 @@ it is recommended that you review it before getting started.
     ]);
   }
 
-  package NewRelic::NewrelicDatastoreSegmentConfig {
+  package NewFangle::NewrelicDatastoreSegmentConfig {
     FFI::C->struct([
       instance_reporting      => 'bool',
       database_name_reporting => 'bool',
     ]);
   }
 
-  package NewRelic::NewrelicDistributedTracingConfig {
+  package NewFangle::NewrelicDistributedTracingConfig {
     FFI::C->struct([
       enabled => 'bool',
     ]);
   }
 
-  package NewRelic::NewrelicSpanEventConfig {
+  package NewFangle::NewrelicSpanEventConfig {
     FFI::C->struct([
       enabled => 'bool',
     ]);
   }
 
-  package NewRelic::NewrelicAppConfig {
+  package NewFangle::NewrelicAppConfig {
     FFI::C->struct([
       app_name            => 'string(255)',
       license_key         => 'string(255)',
@@ -160,11 +163,11 @@ Returns the
   $ffi->attach( newrelic_version       => []                                => 'string' );
   $ffi->mangler(sub { "newrelic_$_[0]" });
 
-  our @EXPORT_OK = grep /^newrelic_/, keys %NewRelic::;
+  our @EXPORT_OK = grep /^newrelic_/, keys %NewFangle::;
 
-  require NewRelic::Config;
-  require NewRelic::App;
-  require NewRelic::CustomEvent;
+  require NewFangle::Config;
+  require NewFangle::App;
+  require NewFangle::CustomEvent;
 
 };
 
@@ -180,15 +183,15 @@ instead of C<Perl>.
 
 =over 4
 
-=item L<NewRelic::App>
+=item L<NewFangle::App>
 
-=item L<NewRelic::Config>
+=item L<NewFangle::Config>
 
-=item L<NewRelic::CustomEvent>
+=item L<NewFangle::CustomEvent>
 
-=item L<NewRelic::Segment>
+=item L<NewFangle::Segment>
 
-=item L<NewRelic::Transaction>
+=item L<NewFangle::Transaction>
 
 =back
 

@@ -1,17 +1,17 @@
-package NewRelic::Segment {
+package NewFangle::Segment {
 
   use strict;
   use warnings;
   use 5.020;
-  use NewRelic::FFI;
+  use NewFangle::FFI;
   use Carp ();
 
 # ABSTRACT: NewRelic application class
 
 =head1 SYNOPSIS
 
- use NewRelic;
- my $app = NewRelic::App->new;
+ use NewFangle;
+ my $app = NewFangle::App->new;
  my $txn = $app->start_web_transaction("txn_name");
  my $seg = $txn->start_segment("seg_name");
 
@@ -61,7 +61,7 @@ Ends the segment.
 
 =over 4
 
-=item L<NewRelic>
+=item L<NewFangle>
 
 =back
 

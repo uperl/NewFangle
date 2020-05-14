@@ -1,18 +1,18 @@
-package NewRelic::App {
+package NewFangle::App {
 
   use strict;
   use warnings;
   use 5.020;
-  use NewRelic::FFI;
-  use NewRelic::Transaction;
+  use NewFangle::FFI;
+  use NewFangle::Transaction;
   use Carp ();
 
 # ABSTRACT: NewRelic application class
 
 =head1 SYNOPSIS
 
- use NewRelic;
- my $app = NewRelic::App->new;
+ use NewFangle;
+ my $app = NewFangle::App->new;
 
 =head1 DESCRIPTION
 
@@ -22,15 +22,15 @@ NewRelic application class.
 
 =head2 new
 
- my $app = NewRelic::App->new($config, $timeout_ms);
- my $app = NewRelic::App->new(\%config, $timeout_ms);
- my $app = NewRelic::App->new;
+ my $app = NewFangle::App->new($config, $timeout_ms);
+ my $app = NewFangle::App->new(\%config, $timeout_ms);
+ my $app = NewFangle::App->new;
 
-Creates a NewRelic application instance.  The first argument may be one of:
+Creates a NewFangle application instance.  The first argument may be one of:
 
 =over 4
 
-=item L<NewRelic::Config> instance
+=item L<NewFangle::Config> instance
 
 =item Hash reference
 
@@ -45,15 +45,15 @@ provided then only one attempt at connecting to the daemon will be made.
 
 =cut
 
-  $ffi->type('object(NewRelic::App)' => 'newrelic_app_t');
+  $ffi->type('object(NewFangle::App)' => 'newrelic_app_t');
 
   $ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t', 'unsigned short'] => 'newrelic_app_t' => sub {
     my($xsub, undef, $config, $timeout) = @_;
     $config //= {};
-    $config = NewRelic::Config->new(%$config) if ref $config eq 'HASH';
+    $config = NewFangle::Config->new(%$config) if ref $config eq 'HASH';
     $timeout //= 0;
     my $self = $xsub->($config->{config});
-    Carp::croak("unable to create NewRelic::App instance, see log for details") unless defined $self;
+    Carp::croak("unable to create NewFangle::App instance, see log for details") unless defined $self;
     $self;
   });
 
@@ -61,7 +61,7 @@ provided then only one attempt at connecting to the daemon will be made.
 
  my $txn = $app->start_web_transaction($name);
 
-Starts a web based transaction.  Returns the L<NewRelic::Transaction> instance.
+Starts a web based transaction.  Returns the L<NewFangle::Transaction> instance.
 
 (csdk: newrelic_start_web_transaction)
 
@@ -69,7 +69,7 @@ Starts a web based transaction.  Returns the L<NewRelic::Transaction> instance.
 
  my $txn = $app->start_non_web_transaction($name);
 
-Starts a non-web based transaction.  Returns the L<NewRelic::Transaction> instance.
+Starts a non-web based transaction.  Returns the L<NewFangle::Transaction> instance.
 
 (csdk: newrelic_start_web_transaction)
 
@@ -92,7 +92,7 @@ Starts a non-web based transaction.  Returns the L<NewRelic::Transaction> instan
 
 =over 4
 
-=item L<NewRelic>
+=item L<NewFangle>
 
 =back
 

@@ -1,17 +1,17 @@
-package NewRelic::Config {
+package NewFangle::Config {
 
   use strict;
   use warnings;
   use 5.020;
-  use NewRelic::FFI;
+  use NewFangle::FFI;
   use FFI::C::Util ();
 
 # ABSTRACT: NewRelic Configuration class.
 
 =head1 SYNOPSIS
 
- use NewRelic;
- my $config = NewRelic::Config->new(
+ use NewFangle;
+ my $config = NewFangle::Config->new(
    app_name => 'AppName',
    license_key => '',
    datastore_tracer => {
@@ -42,14 +42,14 @@ package NewRelic::Config {
 
 =head1 DESCRIPTION
 
-This class provides an interface to the NewRelic configuration.
+This class provides an interface to the NewFangle configuration.
 
 =head1 CONSTRUCTOR
 
 =head2 new
 
- my $config = NewRelic::Config->new(%config);
- my $config = NewRelic::Config->new;
+ my $config = NewFangle::Config->new(%config);
+ my $config = NewFangle::Config->new;
 
 Creates a new configuration instance.  The synopsis above provides all of the configurable items
 that can be passed to the constructor.  Please see the C-SDK documentation for details on what
@@ -103,7 +103,7 @@ Convert the configuration back to a Perl hash reference.  This may be useful to 
 
 =over 4
 
-=item L<NewRelic>
+=item L<NewFangle>
 
 =back
 

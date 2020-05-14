@@ -1,18 +1,18 @@
-package NewRelic::Transaction {
+package NewFangle::Transaction {
 
   use strict;
   use warnings;
   use 5.020;
-  use NewRelic::FFI;
-  use NewRelic::Segment;
+  use NewFangle::FFI;
+  use NewFangle::Segment;
   use Carp ();
 
 # ABSTRACT: NewRelic application class
 
 =head1 SYNOPSIS
 
- use NewRelic;
- my $app = NewRelic::App->new;
+ use NewFangle;
+ my $app = NewFangle::App->new;
  $app->start_web_transaction("txn_name");
 
 =head1 DESCRIPTION
@@ -25,7 +25,7 @@ NewRelic transaction class
 
  my $seg = $txn->start_segment($name, $category);
 
-Start a new segment.  Returns L<NewRelic::Segment> instance.
+Start a new segment.  Returns L<NewFangle::Segment> instance.
 
 (csdk: newrelic_start_segment)
 
@@ -33,7 +33,7 @@ Start a new segment.  Returns L<NewRelic::Segment> instance.
 
  my $seg = $txn->start_datastore_segment([$product, $collection, $operation, $host, $port_path_or_id, $database_name, $query]);
 
-Start a new datastore segment.  Returns L<NewRelic::Segment> instance.
+Start a new datastore segment.  Returns L<NewFangle::Segment> instance.
 
 (csdk: newrelic_start_datastore_segment)
 
@@ -41,7 +41,7 @@ Start a new datastore segment.  Returns L<NewRelic::Segment> instance.
 
  my $seg = $txn->start_external_segment([$uri,$method,$library]);
 
-Start a new external segment.  Returns L<NewRelic::Segment> instance.
+Start a new external segment.  Returns L<NewFangle::Segment> instance.
 
 (csdk: newrelic_start_external_segment)
 
@@ -86,7 +86,7 @@ Ends the transaction.
 
 =over 4
 
-=item L<NewRelic>
+=item L<NewFangle>
 
 =back
 
