@@ -26,7 +26,13 @@ NewRelic application class.
  my $app = NewFangle::App->new(\%config, $timeout_ms);
  my $app = NewFangle::App->new;
 
-Creates a NewFangle application instance.  The first argument may be one of:
+Creates a NewFangle application instance.  On failure to connect an app instance will
+still be created and usable, though of course no stats will be sent to NewRelic.  There
+will be appropriate diagnostics sent to the log (configured with C<newrelic_configure_log>
+in L<NewFangle>).  If you want  to check if the connection was successful, then you can
+use the C<connected> method below:
+
+The first argument may be one of:
 
 =over 4
 
@@ -39,7 +45,7 @@ Containing the initialization for a config instance which will be created intern
 =back
 
 If C<$timeout_ms> is the maximum time to wait for a connection to be established.  If not
-provided then only one attempt at connecting to the daemon will be made.
+specified, then only one attempt at connecting to the daemon will be made.
 
 (csdk: newrelic_create_app)
 
@@ -49,7 +55,7 @@ provided then only one attempt at connecting to the daemon will be made.
     my($xsub, undef, $config, $timeout) = @_;
     $config //= {};
     $config = NewFangle::Config->new(%$config) if ref $config eq 'HASH';
-    $timeout //= 0;
+    $timeout //= $ENV{PERL_NEWFANGLE_TIMEOUT} // 0;
     my $self = $xsub->($config->{config});
     unless(defined $self)
     {
@@ -95,6 +101,20 @@ Starts a non-web based transaction.  Returns the L<NewFangle::Transaction> insta
     my $ptr = $$self;
     $xsub->(\$ptr);
   });
+
+=head2 connected
+
+ my $bool = $app->connected;
+
+Returns true if the app class was able to connect to the local NewRelic daemon on startup.
+
+=cut
+
+  sub connected
+  {
+    my $self = shift;
+    !!$$self;
+  }
 
 };
 
