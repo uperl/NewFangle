@@ -21,7 +21,7 @@ NewRelic custom event class.
 
 =head2 new
 
- my $event = NewFangle::CustomEvent->new($event_type();
+ my $event = NewFangle::CustomEvent->new($event_type);
 
 Creates a NewRelic application custom event.
 

@@ -121,11 +121,43 @@ Ends the transaction.
 
   $ffi->attach( [ end_transaction => 'end' ] => ['opaque*'] => 'bool' );
 
-# TODO: newrelic_record_custom_event
-# TODO: newrelic_record_custom_metric
+=head2 record_custom_event
+
+ $txn->record_custom_event;
+
+(csdk: newrelic_record_custom_event)
+
+=cut
+
+ $ffi->attach( record_custom_event => [ 'newrelic_txn_t', 'opaque*' ] => sub {
+   my($xsub, $self, $event) = @_;
+   Carp::croak("event must be a NewFangle::CustomEvent")
+     unless ref $event eq 'NewFangle::CustomEvent';
+   $xsub->($self, $event);
+ });
+
+=head2 record_custom_metric
+
+ $txn->record_custom_metric($name, $milliseconds);
+
+(csdk: newrelic_record_custom_metric)
+
+=cut
+
+  $ffi->attach( record_custom_metric => [ 'newrelic_txn_t', 'string', 'double' ] => 'bool' );
+
+=head2 set_name
+
+ my $bool = $txn->set_name($name);
+
+(csdk: newrelic_set_transaction_name)
+
+=cut
+
+  $ffi->attach( [ set_transaction_name => 'set_name' ] => [ 'newrelic_txn_t', 'string' ] => 'bool' );
+
 # TODO: newrelic_create_distributed_trace_payload
 # TODO: newrelic_accept_distributed_trace_payload_httpsafe
-# TODO: newrelic_set_transaction_name
 
   sub DESTROY
   {
