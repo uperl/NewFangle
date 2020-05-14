@@ -53,7 +53,7 @@ provided then only one attempt at connecting to the daemon will be made.
     $config = NewRelic::Config->new(%$config) if ref $config eq 'HASH';
     $timeout //= 0;
     my $self = $xsub->($config->{config});
-    Carp::croak("unable to NewRelic::App instance, see log for details") unless defined $self;
+    Carp::croak("unable to create NewRelic::App instance, see log for details") unless defined $self;
     $self;
   });
 
