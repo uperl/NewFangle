@@ -47,9 +47,30 @@ Ends the segment.
     $xsub->($self->{txn}, \$self->{ptr});
   });
 
-# TODO: newrelic_set_segment_parent
-# TODO: newrelic_set_segment_parent_root
-# TODO: newrelic_set_segment_timing
+=head2 set_parent
+
+ my $bool = $seg->set_parent($seg2);
+
+(csdk: newrelic_set_segment_parent)
+
+=head2 set_parent_root
+
+ my $bool = $seg->set_parent_root;
+
+(csdk: newrelic_set_segment_parent_root)
+
+=head2 set_timing
+
+ my $bool = $seg->set_timing($start_time, $duration);
+
+(csdk: newrelic_set_segment_timing)
+
+=cut
+
+  $ffi->attach( [ set_segment_parent      => 'set_parent'      ] => [ 'newrelic_segment_t', 'newrelic_segment_t' ] => 'bool' );
+  $ffi->attach( [ set_segment_parent_root => 'set_parent_root' ] => [ 'newrelic_segment_t'                       ] => 'bool' );
+  $ffi->attach( [ set_segment_timing      => 'set_timing'      ] => [ 'newrelic_segment_t', 'newrelic_time_us_t',
+                                                                      'newrelic_time_us_t'                       ] => 'bool' );
 
   sub DESTROY
   {

@@ -62,8 +62,6 @@ native Perl bindings and they can use the more obvious NewRelic namespace.
     ], { prefix => 'NEWRELIC_SQL_' });
   }
 
-  $ffi->type('uint64' => 'newrelic_time_us_t');
-
   package NewFangle::DatastoreReporting {
     FFI::C->struct([
       enabled      => 'bool',
