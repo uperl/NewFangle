@@ -26,9 +26,12 @@ is(
 );
 
 is(
-  $app->start_web_transaction("ignore1"),
+  $app->start_web_transaction('ignore1'),
   object {
     call [ isa => 'NewFangle::Transaction' ] => T();
+    #call [ record_custom_event => NewFangle::CustomEvent->new("roar") ] => T();
+    call [ set_name => 'ignore2' ] => T();
+    call [ record_custom_metric => 'cm', 3.14 ] => T();
     call ignore => T();
   },
 );
