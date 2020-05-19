@@ -5,6 +5,7 @@ package NewFangle::Transaction {
   use 5.020;
   use NewFangle::FFI;
   use NewFangle::Segment;
+  use JSON::MaybeXS ();
   use Carp ();
 
 # ABSTRACT: NewRelic application class
@@ -93,6 +94,8 @@ Start a new external segment.  Returns L<NewFangle::Segment> instance.
 
  $txn->notice_error($priority, $errmsg, $errclass);
 
+For Perl you probably want to use C<notice_error_with_stacktrace>, see below.
+
 (csdk: newrelic_notice_error)
 
 =cut
@@ -104,7 +107,7 @@ Start a new external segment.  Returns L<NewFangle::Segment> instance.
  $txn->notice_error_with_stacktrace($priority, $errmsg, $errorclass, $errstacktrace);
 
 This works like notice_error above, except it lets you specify the stack trace instead
-of using the C stack strace, which is likely not helpful for a Perl application.
+of using the C stack trace, which is likely not helpful for a Perl application.
 
 This method requires a patch that hasn't currently been applied to the official NewRelic
 C-SDK.  L<Alien::libnewrelic> should apply this fro you, but if you are building the
@@ -116,7 +119,12 @@ C-SDK yourself and need this method then you will need to apply this patch.
 
   if($ffi->find_symbol('notice_error_with_stacktrace'))
   {
-    $ffi->attach( notice_error_with_stacktrace => [ 'newrelic_txn_t', 'int', 'string', 'string', 'string' ] );
+    $ffi->attach( notice_error_with_stacktrace => [ 'newrelic_txn_t', 'int', 'string', 'string', 'string' ] => sub {
+      my($xsub, $self, $priority, $errmsg, $errorclass, $errstacktrace) = @_;
+      $errstacktrace = [split /\n/, $errstacktrace] unless ref $errstacktrace eq 'ARRAY';
+      $errstacktrace = JSON::MaybeXS::encode_json($errstacktrace);
+      $xsub->($self, $priority, $errmsg, $errorclass, $errstacktrace);
+    });
   }
   else
   {

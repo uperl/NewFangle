@@ -24,15 +24,17 @@ is(
   $app->start_non_web_transaction("nonweb1"),
   object {
     call [ isa => 'NewFangle::Transaction' ] => T();
-    call [ notice_error => 3, "oh boy this is bad", "Error::Class" ] => U();
+    call_list [ notice_error => 3, "oh boy this is bad", "Error::Class" ] => [];
+    call end => T();
   },
 );
 
 is(
-  $app->start_non_web_transaction("nonweb1"),
+  $app->start_non_web_transaction("nonweb2"),
   object {
     call [ isa => 'NewFangle::Transaction' ] => T();
-    call [ notice_error_with_transaction => 3, "and this has a perl stack trace", "Error::Class", longmess() ] => U();
+    call_list [ notice_error_with_stacktrace => 10, "and this has a perl stack trace", "FroobleBits::Manifest", longmess() ] => [];
+    call end => T();
   },
 );
 
