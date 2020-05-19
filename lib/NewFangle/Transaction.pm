@@ -5,6 +5,8 @@ package NewFangle::Transaction {
   use 5.020;
   use NewFangle::FFI;
   use NewFangle::Segment;
+  use FFI::Platypus::Memory ();
+  use Ref::Util qw( is_blessed_ref );
   use JSON::MaybeXS ();
   use Carp ();
 
@@ -189,9 +191,55 @@ Ends the transaction.
 
   $ffi->attach( [ set_transaction_name => 'set_name' ] => [ 'newrelic_txn_t', 'string' ] => 'bool' );
 
-# TODO: newrelic_create_distributed_trace_payload
+=head2 newrelic_create_distributed_trace_payload
+
+ my $payload = $txn->create_distributed_trace_payload;
+ my $payload = $txn->create_distributed_trace_payload($seg);
+
+Note that to use distributed tracing the L<NewFangle::App> instance must have it enabled in
+the configuration.  You can do this like:
+
+ my $app = NewFangle::App->new({ distributed_tracing => { enabled => 1 } });
+
+(csdk: newrelic_create_distributed_trace_payload)
+
+=head2 newrelic_create_distributed_trace_payload_httpsafe
+
+ my $payload = $txn->create_distributed_trace_payload_httpsafe;
+ my $payload = $txn->create_distributed_trace_payload_httpsafe($seg);
+
+(csdk: newrelic_create_distributed_trace_payload)
+
+=cut
+
+  $ffi->attach_cast(_ptr_to_string => 'opaque', 'string');
+  sub _create_dt_payload {
+    my($xsub, $self, $seg) = @_;
+    my $seg_ptr;
+    if(defined $seg)
+    {
+      if(is_blessed_ref($seg) && $seg->isa('NewFangle::Segment'))
+      {
+        $seg_ptr = $seg->{ptr};
+      }
+      else
+      {
+        Carp::croak("$seg is not a NewFangle::Segment");
+      }
+    }
+    my $str_ptr = $xsub->($self, $seg_ptr);
+    defined $str_ptr
+      ? do {
+        my $str = _ptr_to_string($str_ptr);
+        FFI::Platypus::Memory::free($str_ptr);
+        $str;
+      } : ();
+  }
+
+  $ffi->attach( create_distributed_trace_payload          => [ 'newrelic_txn_t', 'opaque' ] => 'opaque' => \&_create_dt_payload);
+  $ffi->attach( create_distributed_trace_payload_httpsafe => [ 'newrelic_txn_t', 'opaque' ] => 'opaque' => \&_create_dt_payload);
+
 # TODO: newrelic_accept_distributed_trace_payload
-# TODO: newrelic_create_distributed_trace_payload_httpsafe
 # TODO: newrelic_accept_distributed_trace_payload_httpsafe
 
   sub DESTROY

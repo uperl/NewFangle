@@ -6,6 +6,8 @@ Revision history for {{$dist->name}}},
     (always).  The underlying C-SDK returns void (undef), but it is easier
     for the Perl api to return true for consistency and for testing. (gh#11)
   - Add NewFangle::Transaction#notice_error_with_transaction (gh#11)
+  - Add NewFangle::Transaction#create_distributed_trace_payload (gh#11)
+  - Add NewFangle::Transaction#create_distributed_trace_payload_httpsafe (gh#11)
 
 0.01      2020-05-14 17:37:47 -0400
   - initial version
