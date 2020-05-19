@@ -1,5 +1,6 @@
 use Test2::V0 -no_srand => 1;
 use Test2::Tools::AsyncSubtest;
+use Test2::Tools::JSON::Pointer;
 use lib 't/lib';
 use LiveTest;
 use Time::HiRes qw( usleep );
@@ -76,5 +77,49 @@ foreach my $index (0..25)
 $_->finish for @children;
 
 $outer_txn->end;
+
+$app = NewFangle::App->new({ distributed_tracing => { enabled => 1 } });
+
+is(
+  $app->start_web_transaction('dt-payload-test1'),
+  object {
+    call [ isa => 'NewFangle::Transaction' ] => T();
+    call create_distributed_trace_payload => json hash { etc; };
+    call end => T();
+  },
+);
+
+is(
+  $app->start_web_transaction('dt-payload-test2'),
+  object {
+    call [ isa => 'NewFangle::Transaction' ] => T();
+    call sub { my $txn = $_[0];
+               my $seg = $txn->start_segment('frooble-bits-3');
+               $txn->create_distributed_trace_payload($seg);
+             } => json hash { etc; };
+    call end => T();
+  },
+);
+
+is(
+  $app->start_web_transaction('dt-payload-test3'),
+  object {
+    call [ isa => 'NewFangle::Transaction' ] => T();
+    call create_distributed_trace_payload_httpsafe => T();
+    call end => T();
+  },
+);
+
+is(
+  $app->start_web_transaction('dt-payload-test4'),
+  object {
+    call [ isa => 'NewFangle::Transaction' ] => T();
+    call sub { my $txn = $_[0];
+               my $seg = $txn->start_segment('frooble-bits-3');
+               $txn->create_distributed_trace_payload_httpsafe($seg);
+             } => T();
+    call end => T();
+  },
+);
 
 done_testing;
