@@ -208,7 +208,7 @@ the configuration.  You can do this like:
  my $payload = $txn->create_distributed_trace_payload_httpsafe;
  my $payload = $txn->create_distributed_trace_payload_httpsafe($seg);
 
-(csdk: newrelic_create_distributed_trace_payload)
+(csdk: newrelic_create_distributed_trace_payload_httpsafe)
 
 =cut
 
@@ -239,8 +239,51 @@ the configuration.  You can do this like:
   $ffi->attach( create_distributed_trace_payload          => [ 'newrelic_txn_t', 'opaque' ] => 'opaque' => \&_create_dt_payload);
   $ffi->attach( create_distributed_trace_payload_httpsafe => [ 'newrelic_txn_t', 'opaque' ] => 'opaque' => \&_create_dt_payload);
 
-# TODO: newrelic_accept_distributed_trace_payload
-# TODO: newrelic_accept_distributed_trace_payload_httpsafe
+=head2 accept_distributed_trace_payload
+
+ my $bool = $txn->accept_distributed_trace_payload($payload, $transport_type);
+
+C<$transport_type> the recommended values are:
+
+=over 4
+
+=item C<Unknown>
+
+=item C<HTTP>
+
+=item C<HTTPS>
+
+=item C<Kafka>
+
+=item C<JMS>
+
+=item C<IronMQ>
+
+=item C<AMQP>
+
+=item C<Queue>
+
+=item C<Other>
+
+=back
+
+C<undef> can also be used in place of C<Unknown>, but an info-level message will be logged.
+
+(csdk: newrelic_accept_distributed_trace_payload)
+
+=head2 accept_distributed_trace_payload_httpsafe
+
+ my $bool = $txn->accept_distributed_trace_payload_httpsafe($payload, $transport_type);
+
+Same as C<accept_distributed_trace_payload> above, but uses the payload
+from C<create_distributed_trace_payload_httpsafe>.
+
+(csdk: newrelic_accept_distributed_trace_payload_httpsafe)
+
+=cut
+
+  $ffi->attach( accept_distributed_trace_payload          => [ 'newrelic_txn_t', 'string', 'string' ] => 'bool' );
+  $ffi->attach( accept_distributed_trace_payload_httpsafe => [ 'newrelic_txn_t', 'string', 'string' ] => 'bool' );
 
   sub DESTROY
   {
