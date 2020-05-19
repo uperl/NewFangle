@@ -97,7 +97,31 @@ Start a new external segment.  Returns L<NewFangle::Segment> instance.
 
 =cut
 
-  $ffi->attach( "notice_error" => [ 'newrelic_txn_t', 'int', 'string', 'string' ] );
+  $ffi->attach( notice_error => [ 'newrelic_txn_t', 'int', 'string', 'string' ] );
+
+=head2 notice_error_with_stacktrace
+
+ $txn->notice_error_with_stacktrace($priority, $errmsg, $errorclass, $errstacktrace);
+
+This works like notice_error above, except it lets you specify the stack trace instead
+of using the C stack strace, which is likely not helpful for a Perl application.
+
+This method requires a patch that hasn't currently been applied to the official NewRelic
+C-SDK.  L<Alien::libnewrelic> should apply this fro you, but if you are building the
+C-SDK yourself and need this method then you will need to apply this patch.
+
+(csdk: notice_error_with_stacktrace)
+
+=cut
+
+  if($ffi->find_symbol('notice_error_with_stacktrace'))
+  {
+    $ffi->attach( notice_error_with_stacktrace => [ 'newrelic_txn_t', 'int', 'string', 'string', 'string' ] );
+  }
+  else
+  {
+    *notice_error_with_stacktrace = \&notice_error;
+  }
 
 =head2 ignore
 
