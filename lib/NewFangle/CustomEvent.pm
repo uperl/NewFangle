@@ -11,7 +11,10 @@ package NewFangle::CustomEvent {
 =head1 SYNOPSIS
 
  use NewFangle;
+ my $app   = NewFangle::App->new;
+ my $txn   = $app->start_web_transaction("my-txn");
  my $event = NewFangle::CustomEvent->new("my event");
+ $txn->record_custom_event($event);
 
 =head1 DESCRIPTION
 

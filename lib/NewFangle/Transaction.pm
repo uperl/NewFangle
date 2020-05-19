@@ -137,7 +137,7 @@ C-SDK yourself and need this method then you will need to apply this patch.
 
  my $bool = $txn->ignore;
 
-csdk: newrelic_ignore_transaction)
+(csdk: newrelic_ignore_transaction)
 
 =cut
 
@@ -157,7 +157,9 @@ Ends the transaction.
 
 =head2 record_custom_event
 
- $txn->record_custom_event;
+ $txn->record_custom_event($event);
+
+C<$event> should be an instance of L<NewFangle::CustomEvent>.
 
 (csdk: newrelic_record_custom_event)
 
