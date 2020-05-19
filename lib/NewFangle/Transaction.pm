@@ -134,6 +134,7 @@ Ends the transaction.
    Carp::croak("event must be a NewFangle::CustomEvent")
      unless ref $event eq 'NewFangle::CustomEvent';
    $xsub->($self, $event);
+   1;
  });
 
 =head2 record_custom_metric
