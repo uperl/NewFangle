@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}},
 
 {{$NEXT}}
+  - Bump Alien::libnewrelic prereq to 0.04
   - NewFangle::Transaction#record_custom_event now returns a true value
     (always).  The underlying C-SDK returns void (undef), but it is easier
     for the Perl api to return true for consistency and for testing. (gh#11)
