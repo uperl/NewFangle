@@ -44,7 +44,9 @@ These may be imported on request using L<Exporter>.
 
  my $bool = newrelic_configure_log($filename, $level);
 
-Configure the C SDK's logging system.  C<$level> should be one of:
+Configure the C SDK's logging system.  If C<$filename> is C<stdout> or
+C<stderr>, the log output will be set to one of those output streams.
+C<$level> should be one of:
 
 =over 4
 
@@ -74,7 +76,7 @@ Initialize the C SDK with non-default settings.
 
 (csdk: newrelic_version)
 
-Returns the
+Returns the version of the NewRelic C-SDK.
 
 =cut
 

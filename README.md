@@ -39,7 +39,9 @@ These may be imported on request using [Exporter](https://metacpan.org/pod/Expor
 my $bool = newrelic_configure_log($filename, $level);
 ```
 
-Configure the C SDK's logging system.  `$level` should be one of:
+Configure the C SDK's logging system.  If `$filename` is `stdout` or
+`stderr`, the log output will be set to one of those output streams.
+`$level` should be one of:
 
 - `error`
 - `warning`
@@ -66,7 +68,7 @@ my $version = newrelic_version();
 
 (csdk: newrelic\_version)
 
-Returns the
+Returns the version of the NewRelic C-SDK.
 
 # ENVIRONMENT
 
