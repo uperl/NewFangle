@@ -68,13 +68,13 @@ my $version = newrelic_version();
 
 Returns the version of the NewRelic C-SDK as a string.
 
-## newrelic\_set\_host\_display\_name
+## newrelic\_set\_hostname
 
 ```perl
-my $bool = newrelic_set_host_display_name($hostname);
+my $bool = newrelic_set_hostname($hostname);
 ```
 
-Sets the default hostname to be displayed in the NewRelic UI.  This is the result of
+Sets the default hostname to be used in the NewRelic UI.  This is the result of
 `gethostname` by default, but that might not be usefully meaningful when running in
 a docker or similar container.
 
@@ -95,10 +95,10 @@ the NewRelic C-SDK hadn't been patched.
 
     The NewRelic license key.
 
-- `NEWRELIC_APP_HOST_DISPLAY_NAME`
+- `NEWRELIC_APP_HOSTNAME`
 
     The host display name that will be reported to NewRelic, if the `libnewrelic` has been properly
-    patched (see `newrelic_set_host_display_name` above).
+    patched (see `newrelic_set_hostname` above).
 
 # CAVEATS
 
