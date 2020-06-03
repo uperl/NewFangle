@@ -54,9 +54,9 @@ specified, then only one attempt at connecting to the daemon will be made.
   $ffi->attach( [ create_app => 'new' ] => ['newrelic_app_config_t', 'unsigned short'] => 'newrelic_app_t' => sub {
     my($xsub, undef, $config, $timeout) = @_;
 
-    if(defined $ENV{NEWRELIC_APP_HOST_DISPLAY_NAME}) {
-      NewFangle::newrelic_set_host_display_name(
-        $ENV{NEWRELIC_APP_HOST_DISPLAY_NAME}
+    if(defined $ENV{NEWRELIC_APP_HOSTNAME}) {
+      NewFangle::newrelic_set_hostname(
+        $ENV{NEWRELIC_APP_HOSTNAME}
       );
     }
 

@@ -76,11 +76,11 @@ Initialize the C SDK with non-default settings.
 
 Returns the version of the NewRelic C-SDK as a string.
 
-=head2 newrelic_set_host_display_name
+=head2 newrelic_set_hostname
 
- my $bool = newrelic_set_host_display_name($hostname);
+ my $bool = newrelic_set_hostname($hostname);
 
-Sets the default hostname to be displayed in the NewRelic UI.  This is the result of
+Sets the default hostname to be used in the NewRelic UI.  This is the result of
 C<gethostname> by default, but that might not be usefully meaningful when running in
 a docker or similar container.
 
@@ -98,13 +98,13 @@ the NewRelic C-SDK hadn't been patched.
   $ffi->attach( newrelic_init          => ['string','int' ]                 => 'bool'   );
   $ffi->attach( newrelic_version       => []                                => 'string' );
 
-  if($ffi->find_symbol( 'newrelic_set_host_display_name' ))
+  if($ffi->find_symbol( 'newrelic_set_hostname' ))
   {
-    $ffi->attach( newrelic_set_host_display_name => ['string'] => 'int' );
+    $ffi->attach( newrelic_set_hostname => ['string'] => 'int' );
   }
   else
   {
-    *newrelic_set_host_display_name = sub { 0 };
+    *newrelic_set_hostname = sub { 0 };
   }
 
   $ffi->mangler(sub { "newrelic_$_[0]" });
@@ -127,10 +127,10 @@ The default app name, if not specified in the configuration.
 
 The NewRelic license key.
 
-=item C<NEWRELIC_APP_HOST_DISPLAY_NAME>
+=item C<NEWRELIC_APP_HOSTNAME>
 
 The host display name that will be reported to NewRelic, if the C<libnewrelic> has been properly
-patched (see C<newrelic_set_host_display_name> above).
+patched (see C<newrelic_set_hostname> above).
 
 =back
 

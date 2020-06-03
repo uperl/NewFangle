@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}},
 
 {{$NEXT}}
   - Add NewFangle::newrelic_set_host_display_name (gh#14)
+  - Add NEWRELIC_APP_HOSTNAME environment variable (gh#14)
 
 0.02      2020-05-19 16:23:14 -0600
   - Bump Alien::libnewrelic prereq to 0.04
