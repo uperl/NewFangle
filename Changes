@@ -1,7 +1,6 @@
 Revision history for {{$dist->name}}},
 
 {{$NEXT}}
-  - Add NewFangle::newrelic_set_language (gh#14)
   - Add NewFangle::newrelic_set_host_display_name (gh#14)
 
 0.02      2020-05-19 16:23:14 -0600

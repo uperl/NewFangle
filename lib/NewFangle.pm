@@ -76,22 +76,6 @@ Initialize the C SDK with non-default settings.
 
 Returns the version of the NewRelic C-SDK as a string.
 
-=head2 newrelic_set_language
-
- my $bool = newrelic_set_language($lang, $version);
-
-Sets the default language and version number.  This is C<C> and the NewRelic C-SDK version
-by default.  Probably more sensible for Perl applications would be:
-
- newrelic_set_language('perl', $]);
-
-This requires a properly patched NewRelic C-SDK to work, since the base C-SDK doesn't
-currently support setting the language or version.  If you installed with L<Alien::libnewrelic>
-then it should have been properly patched for you.
-
-Returns true if successful, false otherwise.  Normally a failure would only happen if
-the NewRelic C-SDK hadn't been patched.
-
 =head2 newrelic_set_host_display_name
 
  my $bool = newrelic_set_host_display_name($hostname);
@@ -113,15 +97,6 @@ the NewRelic C-SDK hadn't been patched.
   $ffi->attach( newrelic_configure_log => ['string','newrelic_loglevel_t' ] => 'bool'   );
   $ffi->attach( newrelic_init          => ['string','int' ]                 => 'bool'   );
   $ffi->attach( newrelic_version       => []                                => 'string' );
-
-  if($ffi->find_symbol( 'newrelic_set_language' ))
-  {
-    $ffi->attach( newrelic_set_language => ['string','string'] => 'int' );
-  }
-  else
-  {
-    *newrelic_set_language = sub { 0 };
-  }
 
   if($ffi->find_symbol( 'newrelic_set_host_display_name' ))
   {
@@ -151,16 +126,6 @@ The default app name, if not specified in the configuration.
 =item C<NEWRELIC_LICENSE_KEY>
 
 The NewRelic license key.
-
-=item C<NEWRELIC_APP_LANGUAGE>
-
-The language that will be reported to NewRelic, if the C<libnewrelic> has been properly
-patched (see C<newrelic_set_language> above).
-
-=item C<NEWRELIC_APP_LANGUAGE_VERSION>
-
-The language version that will be reported to NewRelic, if the C<libnewrelic> has been properly
-patched (see C<newrelic_set_language> above).
 
 =item C<NEWRELIC_APP_HOST_DISPLAY_NAME>
 
