@@ -115,6 +115,21 @@ the NewRelic C-SDK hadn't been patched.
 
     The NewRelic license key.
 
+- `NEWRELIC_APP_LANGUAGE`
+
+    The language that will be reported to NewRelic, if the `libnewrelic` has been properly
+    patched (see `newrelic_set_language` above).
+
+- `NEWRELIC_APP_LANGUAGE_VERSION`
+
+    The language version that will be reported to NewRelic, if the `libnewrelic` has been properly
+    patched (see `newrelic_set_language` above).
+
+- `NEWRELIC_APP_HOST_DISPLAY_NAME`
+
+    The host display name that will be reported to NewRelic, if the `libnewrelic` has been properly
+    patched (see `newrelic_set_host_display_name` above).
+
 # CAVEATS
 
 Unlike the older NewRelic Agent SDK, there is no interface to set the programming

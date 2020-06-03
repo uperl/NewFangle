@@ -152,6 +152,21 @@ The default app name, if not specified in the configuration.
 
 The NewRelic license key.
 
+=item C<NEWRELIC_APP_LANGUAGE>
+
+The language that will be reported to NewRelic, if the C<libnewrelic> has been properly
+patched (see C<newrelic_set_language> above).
+
+=item C<NEWRELIC_APP_LANGUAGE_VERSION>
+
+The language version that will be reported to NewRelic, if the C<libnewrelic> has been properly
+patched (see C<newrelic_set_language> above).
+
+=item C<NEWRELIC_APP_HOST_DISPLAY_NAME>
+
+The host display name that will be reported to NewRelic, if the C<libnewrelic> has been properly
+patched (see C<newrelic_set_host_display_name> above).
+
 =back
 
 =head1 CAVEATS
