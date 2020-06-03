@@ -82,6 +82,25 @@ Returns the
   $ffi->attach( newrelic_configure_log => ['string','newrelic_loglevel_t' ] => 'bool'   );
   $ffi->attach( newrelic_init          => ['string','int' ]                 => 'bool'   );
   $ffi->attach( newrelic_version       => []                                => 'string' );
+
+  if($ffi->find_symbol( 'newrelic_set_language' ))
+  {
+    $ffi->attach( newrelic_set_language => ['string','string'] => 'int' );
+  }
+  else
+  {
+    *newrelic_set_language = sub { 0 };
+  }
+
+  if($ffi->find_symbol( 'newrelic_set_host_display_name' ))
+  {
+    $ffi->attach( newrelic_set_host_display_name => ['string'] => 'int' );
+  }
+  else
+  {
+    *newrelic_set_host_display_name = sub { 0 };
+  }
+
   $ffi->mangler(sub { "newrelic_$_[0]" });
 
   our @EXPORT_OK = grep /^newrelic_/, keys %NewFangle::;

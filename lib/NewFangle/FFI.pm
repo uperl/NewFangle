@@ -30,14 +30,18 @@ This is part of the internal workings for L<NewFangle>.
 
 =cut
 
+  sub _lib {
+    my $lib = FFI::CheckLib::find_lib lib => 'newrelic';
+    $lib
+      ? $lib
+      : FFI::CheckLib::find_lib lib => 'newrelic', alien => 'Alien::libnewrelic'
+    ;
+  }
+
+
   our $ffi = FFI::Platypus->new(
     api => 1,
-    lib => [do {
-      my $lib = FFI::CheckLib::find_lib lib => 'newrelic';
-      $lib
-        ? $lib
-        : FFI::CheckLib::find_lib lib => 'newrelic', alien => 'Alien::libnewrelic',
-    }],
+    lib => [_lib],
   );
   $ffi->mangler(sub { "newrelic_$_[0]" });
   $ffi->load_custom_type('::PtrObject', 'newrelic_segment_t', 'NewFangle::Segment',
