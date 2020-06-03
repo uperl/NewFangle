@@ -66,7 +66,44 @@ my $version = newrelic_version();
 
 (csdk: newrelic\_version)
 
-Returns the
+Returns the version of the NewRelic C-SDK as a string.
+
+## newrelic\_set\_language
+
+```perl
+my $bool = newrelic_set_language($lang, $version);
+```
+
+Sets the default language and version number.  This is `C` and the NewRelic C-SDK version
+by default.  Probably more sensible for Perl applications would be:
+
+```
+newrelic_set_language('perl', $]);
+```
+
+This requires a properly patched NewRelic C-SDK to work, since the base C-SDK doesn't
+currently support setting the language or version.  If you installed with [Alien::libnewrelic](https://metacpan.org/pod/Alien::libnewrelic)
+then it should have been properly patched for you.
+
+Returns true if successful, false otherwise.  Normally a failure would only happen if
+the NewRelic C-SDK hadn't been patched.
+
+## newrelic\_set\_host\_display\_name
+
+```perl
+my $bool = newrelic_set_host_display_name($hostname);
+```
+
+Sets the default hostname to be displayed in the NewRelic UI.  This is the result of
+`gethostname` by default, but that might not be usefully meaningful when running in
+a docker or similar container.
+
+This requires a properly patched NewRelic C-SDK to work, since the base C-SDK doesn't
+currently support setting the language or version.  If you installed with [Alien::libnewrelic](https://metacpan.org/pod/Alien::libnewrelic)
+then it should have been properly patched for you.
+
+Returns true if successful, false otherwise.  Normally a failure would only happen if
+the NewRelic C-SDK hadn't been patched.
 
 # ENVIRONMENT
 
