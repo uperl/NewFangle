@@ -85,6 +85,10 @@ then it should have been properly patched for you.
 Returns true if successful, false otherwise.  Normally a failure would only happen if
 the NewRelic C-SDK hadn't been patched.
 
+Do NOT use this to avoid licensing fees.  It only makes sense to set this option in an
+environmet like Docker where one physical host has a number of containers with short-lived
+meaningless hostnames.
+
 # ENVIRONMENT
 
 - `NEWRELIC_APP_NAME`
