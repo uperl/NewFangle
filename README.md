@@ -1,4 +1,4 @@
-# NewFangle [![Build Status](https://travis-ci.org/plicease/NewFangle.svg)](http://travis-ci.org/plicease/NewFangle)
+# NewFangle [![Build Status](https://api.travis-ci.com/plicease/NewFangle.svg?branch=master)](https://travis-ci.com/github/plicease/NewFangle)
 
 Unofficial Perl NewRelic SDK
 
