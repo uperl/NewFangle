@@ -26,7 +26,7 @@ package NewFangle::Config {
    redirect_collector => '',
    span_events => {
      enabled => 1,
-   }.
+   },
    transaction_tracer => {
      datastore_reporting => {
        enabled => 1,
