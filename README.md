@@ -1,4 +1,4 @@
-# NewFangle [![Build Status](https://api.travis-ci.com/uperl/NewFangle.svg?branch=main)](https://travis-ci.com/github/uperl/NewFangle) ![linux](https://github.com/uperl/NewFangle/workflows/linux/badge.svg) ![macos](https://github.com/uperl/NewFangle/workflows/macos/badge.svg)
+# NewFangle ![linux](https://github.com/uperl/NewFangle/workflows/linux/badge.svg) ![macos](https://github.com/uperl/NewFangle/workflows/macos/badge.svg)
 
 Unofficial Perl NewRelic SDK
 
