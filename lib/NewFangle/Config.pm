@@ -2,7 +2,7 @@ package NewFangle::Config {
 
   use strict;
   use warnings;
-  use 5.020;
+  use 5.014;
   use NewFangle::FFI;
   use FFI::C::Util ();
 

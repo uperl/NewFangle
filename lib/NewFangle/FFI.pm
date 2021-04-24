@@ -2,7 +2,7 @@ package NewFangle::FFI {
 
   use strict;
   use warnings;
-  use 5.020;
+  use 5.014;
   use FFI::CheckLib 0.27 ();
   use FFI::Platypus 1.26;
   use FFI::C 0.08;
