@@ -5,8 +5,8 @@ Unofficial Perl NewRelic SDK
 # SYNOPSIS
 
 ```perl
-use NewRelic;
-my $app = NewRelic::App->new('MyApp', $license_key);
+use NewFangle;
+my $app = NewFangle::App->new('MyApp', $license_key);
 my $txn = $app->start_transaction('my transaction');
 $txn->end;
 ```
