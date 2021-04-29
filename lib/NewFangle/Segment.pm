@@ -6,7 +6,7 @@ package NewFangle::Segment {
   use NewFangle::FFI;
   use Carp ();
 
-# ABSTRACT: NewRelic application class
+# ABSTRACT: NewRelic segment class
 
 =head1 SYNOPSIS
 
@@ -17,7 +17,7 @@ package NewFangle::Segment {
 
 =head1 DESCRIPTION
 
-NewRelic transaction class
+NewRelic segment class
 
 =head1 METHODS
 
