@@ -79,7 +79,7 @@ Sets the default hostname to be used in the NewRelic UI.  This is the result of
 a docker or similar container.
 
 This requires a properly patched NewRelic C-SDK to work, since the base C-SDK doesn't
-currently support setting the language or version.  If you installed with [Alien::libnewrelic](https://metacpan.org/pod/Alien::libnewrelic)
+currently support overriding the hostname.  If you installed with [Alien::libnewrelic](https://metacpan.org/pod/Alien::libnewrelic)
 then it should have been properly patched for you.
 
 Returns true if successful, false otherwise.  Normally a failure would only happen if

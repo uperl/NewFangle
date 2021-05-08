@@ -85,7 +85,7 @@ C<gethostname> by default, but that might not be usefully meaningful when runnin
 a docker or similar container.
 
 This requires a properly patched NewRelic C-SDK to work, since the base C-SDK doesn't
-currently support setting the language or version.  If you installed with L<Alien::libnewrelic>
+currently support overriding the hostname.  If you installed with L<Alien::libnewrelic>
 then it should have been properly patched for you.
 
 Returns true if successful, false otherwise.  Normally a failure would only happen if
