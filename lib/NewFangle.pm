@@ -30,7 +30,7 @@ Or using a L<NewFangle::Config>:
 
 =begin html
 
-On your dashboard side, you will get:
+<p>On your dashboard side, you will get:</p>
 
 <div style="display: flex">
 <div style="margin: 3px; flex: 1 1 50%">
