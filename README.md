@@ -6,10 +6,24 @@ Unofficial Perl NewRelic SDK
 
 ```perl
 use NewFangle;
-my $app = NewFangle::App->new('MyApp', $license_key);
-my $txn = $app->start_transaction('my transaction');
+my $app = NewFangle::App->new({app_name => 'MyApp', license_key => $license_key});
+my $txn = $app->start_web_transaction('my transaction');
 $txn->end;
 ```
+
+Or using a [NewFangle::Config](https://metacpan.org/pod/NewFangle::Config):
+```perl
+use NewFangle;
+my $config = NewFangle::Config->new(
+  app_name => 'MyApp',
+  license_key => $license_key,
+);
+my $app = NewFangle::App->new($config);
+my $txn = $app->start_web_transaction('my transaction');
+```
+
+On your dashboard side, you will get:
+![](/newrelic-dashboard-result.png)
 
 # DESCRIPTION
 
@@ -26,12 +40,23 @@ found easily.  The documentation has decent coverage of all methods, but it does
 always make sense to reproduce everything that is in the C-SDK documentation, so
 it is recommended that you review it before getting started.
 
+This module requires a running `newrelic-daemon`, in other words the service `newrelic-infra` will return an initialization like this:
+```
+2021-05-27 06:41:27.160 +0000 (23284 23284) error: failed to connect to the daemon using a timeout of 0 ms at the path /tmp/.newrelic.sock
+2021-05-27 06:41:27.160 +0000 (23284 23284) error: error initialising libnewrelic; cannot create application
+```
+
 I've called this module [NewFangle](https://metacpan.org/pod/NewFangle) in the hopes that one day NewRelic will write
 native Perl bindings and they can use the more obvious NewRelic namespace.
 
 # FUNCTIONS
 
 These may be imported on request using [Exporter](https://metacpan.org/pod/Exporter).
+
+For instance:
+```perl
+use NewFangle qw/newrelic_init/;
+```
 
 ## newrelic\_configure\_log
 

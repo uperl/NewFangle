@@ -14,9 +14,31 @@ package NewFangle {
 =head1 SYNOPSIS
 
  use NewFangle;
- my $app = NewFangle::App->new('MyApp', $license_key);
- my $txn = $app->start_transaction('my transaction');
+ my $app = NewFangle::App->new({app_name => 'MyApp', license_key => $license_key});
+ my $txn = $app->start_web_transaction('my transaction');
  $txn->end;
+
+Or using a L<NewFangle::Config>:
+
+ use NewFangle;
+ my $config = NewFangle::Config->new(
+   app_name => 'MyApp',
+   license_key => $license_key,
+ );
+ my $app = NewFangle::App->new($config);
+ my $txn = $app->start_web_transaction('my transaction');
+
+=begin html
+
+On your dashboard side, you will get:
+
+<div style="display: flex">
+<div style="margin: 3px; flex: 1 1 50%">
+<img alt="Test" src="/newrelic-dashboard-result.png" style="max-width: 100%">
+</div>
+</div>
+
+=end html
 
 =head1 DESCRIPTION
 
@@ -33,12 +55,21 @@ found easily.  The documentation has decent coverage of all methods, but it does
 always make sense to reproduce everything that is in the C-SDK documentation, so
 it is recommended that you review it before getting started.
 
+This module requires a running C<newrelic-daemon>.  If you forget, the service C<newrelic-infra> will return an initialization diagnostic like this:
+
+ 2021-05-27 06:41:27.160 +0000 (23284 23284) error: failed to connect to the daemon using a timeout of 0 ms at the path /tmp/.newrelic.sock
+ 2021-05-27 06:41:27.160 +0000 (23284 23284) error: error initialising libnewrelic; cannot create application
+
 I've called this module L<NewFangle> in the hopes that one day NewRelic will write
 native Perl bindings and they can use the more obvious NewRelic namespace.
 
 =head1 FUNCTIONS
 
 These may be imported on request using L<Exporter>.
+
+For instance:
+
+ use NewFangle qw( newrelic_init );
 
 =head2 newrelic_configure_log
 
