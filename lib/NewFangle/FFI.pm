@@ -3,7 +3,7 @@ package NewFangle::FFI {
   use strict;
   use warnings;
   use 5.014;
-  use FFI::CheckLib 0.27 ();
+  use FFI::CheckLib 0.28 ();
   use FFI::Platypus 1.26;
   use FFI::C 0.08;
   use base qw( Exporter );
@@ -31,11 +31,7 @@ This is part of the internal workings for L<NewFangle>.
 =cut
 
   sub _lib {
-    my $lib = FFI::CheckLib::find_lib lib => 'newrelic';
-    $lib
-      ? $lib
-      : FFI::CheckLib::find_lib lib => 'newrelic', alien => 'Alien::libnewrelic'
-    ;
+    FFI::CheckLib::find_lib lib => 'newrelic', alien => 'Alien::libnewrelic';
   }
 
 
@@ -132,4 +128,3 @@ This is part of the internal workings for L<NewFangle>.
 };
 
 1;
-
