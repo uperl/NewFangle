@@ -3,7 +3,7 @@ package NewFangle::FFI {
   use strict;
   use warnings;
   use 5.014;
-  use FFI::CheckLib 0.28 ();
+  use NewFangle::Lib;
   use FFI::Platypus 1.26;
   use FFI::C 0.08;
   use base qw( Exporter );
@@ -30,14 +30,9 @@ This is part of the internal workings for L<NewFangle>.
 
 =cut
 
-  sub _lib {
-    FFI::CheckLib::find_lib lib => 'newrelic', alien => 'Alien::libnewrelic';
-  }
-
-
   our $ffi = FFI::Platypus->new(
     api => 1,
-    lib => [_lib],
+    lib => [NewFangle::Lib->lib],
   );
   $ffi->mangler(sub { "newrelic_$_[0]" });
   $ffi->load_custom_type('::PtrObject', 'newrelic_segment_t', 'NewFangle::Segment',
