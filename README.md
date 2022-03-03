@@ -151,7 +151,11 @@ instead of `Perl`.
 
 # AUTHOR
 
-Graham Ollis <plicease@cpan.org>
+Author: Graham Ollis <plicease@cpan.org>
+
+Contributors:
+
+Owen Allsopp (ALLSOPP)
 
 # COPYRIGHT AND LICENSE
 
