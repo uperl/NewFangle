@@ -193,7 +193,7 @@ C<$event> should be an instance of L<NewFangle::CustomEvent>.
 
   $ffi->attach( [ set_transaction_name => 'set_name' ] => [ 'newrelic_txn_t', 'string' ] => 'bool' );
 
-=head2 newrelic_create_distributed_trace_payload
+=head2 create_distributed_trace_payload
 
  my $payload = $txn->create_distributed_trace_payload;
  my $payload = $txn->create_distributed_trace_payload($seg);
@@ -205,7 +205,7 @@ the configuration.  You can do this like:
 
 (csdk: newrelic_create_distributed_trace_payload)
 
-=head2 newrelic_create_distributed_trace_payload_httpsafe
+=head2 create_distributed_trace_payload_httpsafe
 
  my $payload = $txn->create_distributed_trace_payload_httpsafe;
  my $payload = $txn->create_distributed_trace_payload_httpsafe($seg);
