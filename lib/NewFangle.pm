@@ -34,7 +34,7 @@ Or using a L<NewFangle::Config>:
 
 <div style="display: flex">
 <div style="margin: 3px; flex: 1 1 50%">
-<img alt="Test" src="/newrelic-dashboard-result.png" style="max-width: 100%">
+<img alt="Test" src="NewFangle/newrelic-dashboard-result.png" style="max-width: 100%">
 </div>
 </div>
 
