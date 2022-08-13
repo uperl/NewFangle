@@ -2,6 +2,9 @@ Revision history for {{$dist->name}},
 
 {{$NEXT}}
 
+0.09_01   2022-08-13 08:11:41 -0600
+  - Diagnostic release
+
 0.08      2022-03-03 16:51:34 -0700
   - Improved diagnostic when an invalid license key was provided (allsopp++, gh#24)
   - Documentation fixes (gh#25)
