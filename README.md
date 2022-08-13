@@ -52,7 +52,7 @@ native Perl bindings and they can use the more obvious NewRelic namespace.
     <p>On your dashboard side, you will get:</p>
     <div style="display: flex">
     <div style="margin: 3px; flex: 1 1 50%">
-    <img alt="Test" src="NewFangle/newrelic-dashboard-result.png" style="max-width: 100%">
+    <img alt="Test" src="/lib/NewFangle/newrelic-dashboard-result.png" style="max-width: 100%">
     </div>
     </div>
 </div>
