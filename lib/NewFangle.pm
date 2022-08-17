@@ -75,7 +75,10 @@ For instance:
 
  my $bool = newrelic_configure_log($filename, $level);
 
-Configure the C SDK's logging system.  C<$level> should be one of:
+Configure the C SDK's logging system.  If the literal string C<stdout> 
+or C<stdout> is specified for C<$filename>, then the logs will be 
+written to standard output or standard error, respectively.  C<$level> 
+should be one of:
 
 =over 4
 
