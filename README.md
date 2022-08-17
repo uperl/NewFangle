@@ -74,7 +74,10 @@ use NewFangle qw( newrelic_init );
 my $bool = newrelic_configure_log($filename, $level);
 ```
 
-Configure the C SDK's logging system.  `$level` should be one of:
+Configure the C SDK's logging system.  If the literal string `stdout` 
+or `stdout` is specified for `$filename`, then the logs will be 
+written to standard output or standard error, respectively.  `$level` 
+should be one of:
 
 - `error`
 - `warning`
@@ -159,7 +162,7 @@ Owen Allsopp (ALLSOPP)
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2020 by Graham Ollis.
+This software is copyright (c) 2020-2022 by Graham Ollis.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
