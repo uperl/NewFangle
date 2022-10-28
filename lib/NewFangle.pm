@@ -31,7 +31,6 @@ Or using a L<NewFangle::Config>:
 =begin html
 
 <p>On your dashboard side, you will get:</p>
-
 <div style="display: flex">
 <div style="margin: 3px; flex: 1 1 50%">
 <img alt="Test" src="/newrelic-dashboard-result.png" style="max-width: 100%">
