@@ -2,3 +2,7 @@ NewFangle-*
 /.build/
 *.swp
 /newrelic_sdk.log
+/NewFangle-*
+/.build
+*.old
+*.orig
